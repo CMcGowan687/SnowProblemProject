@@ -36,7 +36,7 @@ public class BoardGUI extends JFrame {
 
             for (int c = 0; c < 5; c++) {
 
-                tiles[r][c] = new JButton("."); // using . to indicate where each button is.
+                tiles[r][c] = new JButton(""); // using . to indicate where each button is.
                 
                 int row = r;
                 int col = c;
@@ -63,20 +63,8 @@ public class BoardGUI extends JFrame {
 
     //names are just place holders until images are added.
 
-    public void placeSmallSnowball(int row, int col) {
 
-        tiles[row][col].setIcon(SmallSnowballIcon);
-    }
-
-    public void placeLargeSnowball(int row, int col) {
-
-        tiles[row][col].setIcon(LargeSnowballIcon);
-    }
-
-    public void placeSnowmanHead(int row, int col) {
-
-        tiles[row][col].setIcon(SnowmanHeadIcon);
-    }
+    //end of deleted code
 
     //adding the event for the action listener
 
@@ -87,11 +75,9 @@ public class BoardGUI extends JFrame {
             String piece = tiles[row][col].getText();
             
             if (piece.equals("Small") || piece.equals("Large")){ //only the small and large snowballs can be moved
-
+//might need to be changed back just to small and large
                 selectedRow = row;
                 selectedCol = col;
-
-                tiles[row][col].setBackground(Color.YELLOW);
 
                 System.out.println("Piece Selected");
             }
@@ -145,11 +131,21 @@ public class BoardGUI extends JFrame {
             }
             if (newRow != selectedRow || newCol != selectedCol) {
 
-            tiles[selectedRow][selectedCol].setText(".");
-            tiles[selectedRow][selectedCol].setBackground(null); // now the colour will go and the piece of the board will go back to normal.
+            tiles[selectedRow][selectedCol].setText("");
+            tiles[selectedRow][selectedCol].setIcon(null); // now the colour will go and the piece of the board will go back to normal.
 
             tiles[row][col].setText(piece);
+
+            if (piece.equals("Small")) {
+
+                tiles[newRow][newCol].setIcon(SmallSnowballIcon);
             }
+
+            else if (piece.equals("Large")) {
+
+                tiles[newRow][newCol].setIcon(LargeSnowballIcon);
+            }
+        }
          
     
         
@@ -176,6 +172,25 @@ public class BoardGUI extends JFrame {
                 return true;
             }
 
-            return !tiles[row][col].getText().equals(".");
+            return !tiles[row][col].getText().equals("");
     }
+
+    public void placeSmallSnowball(int row, int col) {
+
+        tiles[row][col].setText("Small");
+        tiles[row][col].setIcon(SmallSnowballIcon);
+    }
+
+    public void placeLargeSnowball(int row, int col) {
+
+        tiles[row][col].setText("Large");
+        tiles[row][col].setIcon(LargeSnowballIcon);
+    }
+
+    public void placeSnowmanHead(int row, int col) {
+
+        tiles[row][col].setText("Head");
+        tiles[row][col].setIcon(SnowmanHeadIcon);
+    }
+
 }
